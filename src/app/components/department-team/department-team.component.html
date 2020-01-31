@@ -1,0 +1,23 @@
+<section class="department-team">
+  <div class="row">
+    <div class="col-8">
+      <h2>Team <span class="badge badge-pill badge-primary">{{ team.length }}</span></h2>
+    </div>
+
+    <div class="col-4">
+      <button type="button" class="btn btn-outline-primary float-right">Add Member</button>
+    </div>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item d-flex align-items-center"
+      *ngFor="let member of team">
+      {{ member.name }}
+      <span class="badge badge-secondary ml-2">{{ member.role }}</span>
+      <div class="m-auto"></div>
+
+      <button class="btn btn-sm btn-outline-success" disabled>
+        {{ member.allocation | currency:'':'symbol':'0.0-2' }}</button>
+      <button class="delete"><fa-icon [icon]="faTimes"></fa-icon></button>
+    </li>
+  </ul>
+</section>

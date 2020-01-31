@@ -1,0 +1,12 @@
+<section class="d-flex flex-column department-overview bg-primary">
+  <h2>{{ department?.name }}
+    <a href="#" class="btn btn-success float-right" [hidden]="!department">Edit</a>
+  </h2>
+  <h3 class="d-flex align-items-center">
+    {{ department?.manager?.name || "--" }}
+    <span class="badge badge-secondary ml-2" [hidden]="!department">Manager</span>
+  </h3>
+  <small>Total Allocation:
+    <span>{{ department?.manager?.totalAllocation || 0 | currency:'':'symbol':'1.0-2' }}</span>
+  </small>
+</section>

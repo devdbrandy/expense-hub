@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+// import google font
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600&display=swap');
+
+// configs
+$font-family: 'Titillium Web', sans-serif;
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: $font-family;
+}

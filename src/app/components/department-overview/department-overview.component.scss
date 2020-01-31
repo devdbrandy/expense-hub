@@ -1,0 +1,38 @@
+.department-overview,
+.department-team {
+  padding: 3rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 0 0 20px;
+}
+
+.department-overview {
+  background: #007bff;
+  color: white;
+
+  h2 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    a.btn {
+      text-transform: capitalize;
+      font-size: 1rem;
+      padding: 6px 12px;
+    }
+  }
+
+  h3 .badge {
+    font-size: 1rem;
+  }
+
+  small {
+    font-size: 1rem;
+
+    span {
+      padding: 2px;
+      background: #0065d4;
+      border-radius: 3px;
+    }
+  }
+}
