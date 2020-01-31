@@ -1,11 +1,13 @@
-import { Component, OnInit, OnChanges, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
-import { employees } from '../../shared/models/employee.model';
+import { employees, Developer, QATester, Manager } from '../../shared/models/employee.model';
 
 import { faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { departments } from '../../shared/models/department.model';
+import { departments, Department } from '../../shared/models/department.model';
 import { Employee } from '../../shared/models/employee.model';
+import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-add-user.component';
 
 @Component({
   selector: 'app-department-team',
@@ -13,21 +15,62 @@ import { Employee } from '../../shared/models/employee.model';
   styleUrls: ['./department-team.component.scss'],
 })
 export class DepartmentTeamComponent implements OnInit, OnChanges {
+  @ViewChild('userSelect', { static: false }) userSelect;
   @Input() selectedDept: string;
+  department: Department;
   team: Employee[];
   faTimes = faTimes;
   faUserPlus = faUserPlus;
   departmentTeam = new FormControl();
   employees: Employee[] = employees;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
   ngOnChanges() {
-    const department = departments.find(dept => dept.name === this.selectedDept);
-    this.team = department ? department.manager.team : [];
+    this.department = departments.find(dept => dept.name === this.selectedDept);
+    this.team = this.department ? this.department.manager.team : [];
   }
 
+  openDialog() {
+    this.userSelect.close(); // close select dropdown
+    const dialogRef = this.dialog.open(DialogAddUserComponent, {
+      width: '580px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.createAddUser(result);
+      }
+    });
+  }
+
+  createAddUser({ name, role }: IEmployee) {
+    let employee: Employee;
+
+    switch (role) {
+      case 'developer':
+        employee = new Developer(name);
+        break;
+      case 'qa-tester':
+        employee = new QATester(name);
+        break;
+      default:
+        employee = new Manager(name);
+        break;
+    }
+
+    // add to dept manager team
+    if (this.department) {
+      this.department.addMember(employee);
+    }
+  }
+
+}
+
+export interface IEmployee {
+  name: string;
+  role: string;
 }

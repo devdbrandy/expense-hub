@@ -19,10 +19,6 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  setSelectedDepartment(department) {
-    this.selectedDepartment = department;
-  }
-
   openDialog() {
     const dialogRef = this.dialog.open(DialogAddDepartmentComponent, {
       width: '580px',
@@ -40,6 +36,7 @@ export class AppComponent {
     const newDepartment = new Department(departmentName, manager);
     this.departments.push(newDepartment);
   }
+
 }
 
 export interface IDepartment {

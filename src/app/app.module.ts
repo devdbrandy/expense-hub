@@ -11,13 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DepartmentOverviewComponent } from './components/department-overview/department-overview.component';
 import { DepartmentTeamComponent } from './components/department-team/department-team.component';
 import { DialogAddDepartmentComponent } from './components/dialog-add-department/dialog-add-department.component';
+import { DialogAddUserComponent } from './components/dialog-add-user/dialog-add-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DepartmentOverviewComponent,
     DepartmentTeamComponent,
-    DialogAddDepartmentComponent
+    DialogAddDepartmentComponent,
+    DialogAddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { DialogAddDepartmentComponent } from './components/dialog-add-department
     MatSelectModule,
     MatDialogModule,
   ],
-  entryComponents: [DialogAddDepartmentComponent],
+  entryComponents: [DialogAddDepartmentComponent, DialogAddUserComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

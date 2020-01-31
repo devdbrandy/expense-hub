@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
-import { Department } from '../../shared/models/department.model';
 import { NgForm } from '@angular/forms';
-import { Manager } from 'src/app/shared/models/employee.model';
 
 @Component({
   selector: 'app-dialog-add-department',
@@ -26,7 +24,7 @@ export class DialogAddDepartmentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.dialogRef.close(form.value);
-    // form.reset();
+    form.reset();
   }
 
 }
