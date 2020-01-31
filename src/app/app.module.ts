@@ -13,6 +13,7 @@ import { DepartmentTeamComponent } from './components/department-team/department
 import { DialogAddDepartmentComponent } from './components/dialog-add-department/dialog-add-department.component';
 import { DialogAddUserComponent } from './components/dialog-add-user/dialog-add-user.component';
 import { UnallocatedEmployeesPipe } from './pipes/unallocated-employees.pipe';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UnallocatedEmployeesPipe } from './pipes/unallocated-employees.pipe';
     DepartmentTeamComponent,
     DialogAddDepartmentComponent,
     DialogAddUserComponent,
-    UnallocatedEmployeesPipe
+    UnallocatedEmployeesPipe,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
