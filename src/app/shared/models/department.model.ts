@@ -16,4 +16,10 @@ export class Department {
     this.manager.team.push(member);
   }
 
+  removeMember(member: Employee) {
+    member.removeManager();
+    const index = this.manager.team.indexOf(member);
+    this.manager.team.splice(index, 1);
+  }
+
 }

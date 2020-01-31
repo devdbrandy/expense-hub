@@ -23,6 +23,10 @@ export class Employee {
     this.reportsTo = manager.name;
   }
 
+  removeManager() {
+    this.reportsTo = '';
+  }
+
   get hasManager() {
     return !!(this.reportsTo);
   }

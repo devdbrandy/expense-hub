@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatDialogModule, MatSelectModule } from '@angular/material';
+import { MatDialogModule, MatSelectModule, MatTooltipModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +32,7 @@ import { UnallocatedEmployeesPipe } from './pipes/unallocated-employees.pipe';
     FontAwesomeModule,
     MatSelectModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   entryComponents: [DialogAddDepartmentComponent, DialogAddUserComponent],
   providers: [],

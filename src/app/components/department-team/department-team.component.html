@@ -22,8 +22,9 @@
 
             <mat-option *ngFor="let employee of (employees | unallocatedEmployees)"
               [value]="employee"
-              disabled="!(!!selectedDept)">
+              [disabled]="!(selectedDept)">
               {{ employee.name }}
+              <span class="badge badge-secondary ml-2">{{ employee.role }}</span>
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -40,7 +41,12 @@
 
       <button class="btn btn-sm btn-outline-success" disabled>
         {{ member.allocation | currency:'':'symbol':'0.0-2' }}</button>
-      <button class="delete"><fa-icon [icon]="faTimes"></fa-icon></button>
+      <button class="delete" (click)="onClickDelete(member)">
+        <fa-icon [icon]="faTimes"
+          matTooltip="Remove employee"
+          [matTooltipPosition]="'right'">
+        </fa-icon>
+      </button>
     </li>
   </ul>
 </section>

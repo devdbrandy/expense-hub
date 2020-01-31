@@ -16,7 +16,7 @@ import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-
 })
 export class DepartmentTeamComponent implements OnInit, OnChanges {
   @ViewChild('userSelect', { static: false }) userSelect;
-  @Input() selectedDept: string;
+  @Input() selectedDept: string = '';
   department: Department;
   team: Employee[];
   faTimes = faTimes;
@@ -74,6 +74,10 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
       const member = this.selectedMembers[this.selectedMembers.length - 1];
       this.department.addMember(member);
     }
+  }
+
+  onClickDelete(member: Employee) {
+    this.department.removeMember(member);
   }
 
 }
