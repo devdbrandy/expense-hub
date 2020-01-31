@@ -23,6 +23,7 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
   faUserPlus = faUserPlus;
   departmentTeam = new FormControl();
   employees: Employee[] = employees;
+  selectedMembers: Employee[];
 
   constructor(public dialog: MatDialog) { }
 
@@ -65,6 +66,13 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
     // add to dept manager team
     if (this.department) {
       this.department.addMember(employee);
+    }
+  }
+
+  toggleSelection() {
+    if (this.department) {
+      const member = this.selectedMembers[this.selectedMembers.length - 1];
+      this.department.addMember(member);
     }
   }
 

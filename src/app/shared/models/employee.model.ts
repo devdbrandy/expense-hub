@@ -4,6 +4,8 @@ export class Employee {
   role: string;
   allocation = null;
   team?: Employee[];
+  private headOfDept = false;
+  private reportsTo: string;
 
   constructor(public name: string) {
     this.addNewEmployee();
@@ -15,6 +17,22 @@ export class Employee {
 
   private addNewEmployee() {
     employees.push(this);
+  }
+
+  setManager(manager: Employee) {
+    this.reportsTo = manager.name;
+  }
+
+  get hasManager() {
+    return !!(this.reportsTo);
+  }
+
+  get isHeadOfDept() {
+    return this.headOfDept;
+  }
+
+  toggleHeadOfDept() {
+    this.headOfDept = !this.headOfDept;
   }
 
 }
