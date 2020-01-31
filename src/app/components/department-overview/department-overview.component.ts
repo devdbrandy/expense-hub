@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 import { Department } from '../../shared/models/department.model';
-import { departments } from '../../shared/data';
+import { departments } from '../../shared/models/department.model';
 
 @Component({
   selector: 'app-department-overview',

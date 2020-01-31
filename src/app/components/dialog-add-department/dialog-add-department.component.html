@@ -1,0 +1,25 @@
+<form #departmentForm="ngForm" (ngSubmit)="onSubmit(departmentForm)">
+  <div class="form-group row">
+    <label for="department" class="col-sm-2 col-form-label">Department</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="department"
+        placeholder="Enter Department name"
+        name="departmentName"
+        [ngModel]="model.departmentName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="manager" class="col-sm-2 col-form-label">Manager</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="manager" placeholder="Enter Manager name"
+        name="managerName"
+        [ngModel]="model.managerName">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </div>
+</form>

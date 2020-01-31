@@ -5,7 +5,22 @@
     </div>
 
     <div class="col-4">
-      <button type="button" class="btn btn-outline-primary float-right">Add Member</button>
+      <div class="float-right">
+        <mat-form-field>
+          <mat-label>Add Member</mat-label>
+          <mat-select [formControl]="departmentTeam" multiple>
+            <button type="button" class="btn btn-block btn-success border-radius-0">
+              <fa-icon [icon]="faUserPlus"></fa-icon>
+              Create Member
+            </button>
+            <mat-option disabled>None</mat-option>
+
+            <mat-option *ngFor="let employee of employees" [value]="employee.name">
+              {{ employee.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
   <ul class="list-group">

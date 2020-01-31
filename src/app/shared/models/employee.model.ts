@@ -1,14 +1,20 @@
+export const employees: Employee[] = [];
+
 export class Employee {
   role: string;
   allocation = null;
   team?: Employee[];
 
-  constructor(
-    public name: string,
-  ) { }
+  constructor(public name: string) {
+    this.addNewEmployee();
+  }
 
   get totalAllocation() {
     return this.allocation;
+  }
+
+  private addNewEmployee() {
+    employees.push(this);
   }
 
 }

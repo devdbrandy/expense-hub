@@ -1,6 +1,12 @@
 import { Manager } from './employee.model';
 
-export interface Department {
-  name: string;
-  manager: Manager;
+export const departments: Department[] = [];
+
+export class Department {
+
+  constructor(
+    public name: string,
+    public manager: Manager
+  ) { }
+
 }
