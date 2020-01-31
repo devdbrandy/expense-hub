@@ -10,7 +10,7 @@
           <mat-label>Add Member</mat-label>
           <mat-select #userSelect [formControl]="departmentTeam" multiple
             [(value)]="selectedMembers"
-            (selectionChange)="toggleSelection($event)">
+            (selectionChange)="toggleSelection()">
             <button type="button" class="btn btn-block btn-success border-radius-0"
               (click)="openDialog()">
               <fa-icon [icon]="faUserPlus"></fa-icon>
