@@ -8,12 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DepartmentOverviewComponent } from './components/department-overview/department-overview.component';
-import { DepartmentTeamComponent } from './components/department-team/department-team.component';
-import { DialogAddDepartmentComponent } from './components/dialog-add-department/dialog-add-department.component';
-import { DialogAddUserComponent } from './components/dialog-add-user/dialog-add-user.component';
+
+import {
+  DepartmentOverviewComponent,
+  DepartmentTeamComponent,
+  DialogAddDepartmentComponent,
+  DialogAddUserComponent,
+  FooterComponent,
+} from './components';
+
 import { UnallocatedEmployeesPipe } from './pipes';
-import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,7 @@ import { FooterComponent } from './components/footer/footer.component';
     DialogAddDepartmentComponent,
     DialogAddUserComponent,
     UnallocatedEmployeesPipe,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,10 @@ import { FooterComponent } from './components/footer/footer.component';
     MatDialogModule,
     MatTooltipModule,
   ],
-  entryComponents: [DialogAddDepartmentComponent, DialogAddUserComponent],
+  entryComponents: [
+    DialogAddDepartmentComponent,
+    DialogAddUserComponent,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
