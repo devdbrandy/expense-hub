@@ -13,6 +13,7 @@
           <mat-select #employeeSelect multiple
             [(value)]="selectedEmployees"
             (selectionChange)="toggleMemberSelection()">
+
             <button type="button" class="btn btn-block btn-success border-radius-0"
               (click)="openDialog()">
               <fa-icon [icon]="faUserPlus"></fa-icon>
@@ -20,7 +21,7 @@
             </button>
 
             <mat-option disabled [hidden]="employeeSelect.options.length > 1">
-              No available member
+              No available employee
             </mat-option>
 
             <mat-option *ngFor="let employee of (employees | unallocatedEmployees)"
@@ -43,7 +44,8 @@
       <div class="m-auto"></div>
 
       <button class="btn btn-sm btn-outline-success" disabled>
-        {{ member.allocation | currency:'':'symbol':'0.0-2' }}</button>
+        {{ member.allocation | currency:'':'symbol':'0.0-2' }}
+      </button>
       <button class="delete" (click)="onDeleteClick(member)">
         <fa-icon [icon]="faTimes"
           matTooltip="Remove employee"
