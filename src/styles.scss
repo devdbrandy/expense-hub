@@ -7,7 +7,7 @@ $font-family: 'Titillium Web', sans-serif;
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: $font-family;
+  font-family: $font-family !important;
 }
 
 .border-radius-0 {
