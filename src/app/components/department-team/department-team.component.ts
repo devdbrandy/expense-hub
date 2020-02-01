@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { employees, Developer, QATester, Manager } from '../../shared/models/employee.model';
 
 import { faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { departments, Department } from '../../shared/models/department.model';
+import { Department } from '../../shared/models/department.model';
 import { Employee } from '../../shared/models/employee.model';
 import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-add-user.component';
+import { DepartmentService } from '../../services/department.service';
 
 @Component({
   selector: 'app-department-team',
@@ -16,23 +17,30 @@ import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-
 })
 export class DepartmentTeamComponent implements OnInit, OnChanges {
   @ViewChild('userSelect', { static: false }) userSelect;
-  @Input() selectedDept: string = '';
+  @Input() selectedDept = '';
   department: Department;
-  team: Employee[];
+  team: Employee[] = [];
   faTimes = faTimes;
   faUserPlus = faUserPlus;
   departmentTeam = new FormControl();
   employees: Employee[] = employees;
   selectedMembers: Employee[];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    private departmentService: DepartmentService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
   }
 
   ngOnChanges() {
-    this.department = departments.find(dept => dept.name === this.selectedDept);
-    this.team = this.department ? this.department.manager.team : [];
+    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(data => {
+      if (data) {
+        this.department = data;
+        this.team = this.department.manager.team;
+      }
+    });
   }
 
   openDialog() {
