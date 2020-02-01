@@ -1,21 +1,24 @@
 <section class="department-team">
   <div class="row">
     <div class="col-8">
-      <h2>Team <span class="badge badge-pill badge-primary">{{ team.length }}</span></h2>
+      <h2>Team <span *ngIf="selectedDept" class="badge badge-pill badge-primary">
+        {{ department.manager.team.length }}</span>
+      </h2>
     </div>
 
     <div class="col-4">
       <div class="float-right">
         <mat-form-field>
           <mat-label>Add Member</mat-label>
-          <mat-select #userSelect [formControl]="departmentTeam" multiple
+          <mat-select #userSelect multiple
             [(value)]="selectedMembers"
-            (selectionChange)="toggleSelection()">
+            (selectionChange)="toggleMemberSelection()">
             <button type="button" class="btn btn-block btn-success border-radius-0"
               (click)="openDialog()">
               <fa-icon [icon]="faUserPlus"></fa-icon>
               Create Member
             </button>
+
             <mat-option disabled [hidden]="userSelect.options.length > 1">
               No available member
             </mat-option>
@@ -32,16 +35,16 @@
     </div>
   </div>
 
-  <ul class="list-group">
+  <ul class="list-group" *ngIf="selectedDept">
     <li class="list-group-item d-flex align-items-center"
-      *ngFor="let member of team">
+      *ngFor="let member of department.manager.team">
       {{ member.name }}
       <span class="badge badge-secondary ml-2">{{ member.role | uppercase }}</span>
       <div class="m-auto"></div>
 
       <button class="btn btn-sm btn-outline-success" disabled>
         {{ member.allocation | currency:'':'symbol':'0.0-2' }}</button>
-      <button class="delete" (click)="onClickDelete(member)">
+      <button class="delete" (click)="onDeleteClick(member)">
         <fa-icon [icon]="faTimes"
           matTooltip="Remove employee"
           [matTooltipPosition]="'right'">
