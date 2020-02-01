@@ -2,11 +2,9 @@ import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { Department } from '../../shared/models/department.model';
-import { Employee } from '../../shared/models/employee.model';
+import { Department, Employee } from '../../shared/models';
 import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-add-user.component';
-import { DepartmentService } from '../../services/department.service';
-import { EmployeeService } from '../../services/employee.service';
+import { DepartmentService, EmployeeService } from '../../services';
 
 @Component({
   selector: 'app-department-team',
@@ -15,12 +13,12 @@ import { EmployeeService } from '../../services/employee.service';
 })
 export class DepartmentTeamComponent implements OnInit, OnChanges {
 
-  @ViewChild('userSelect', { static: false }) userSelect;
+  @ViewChild('employeeSelect', { static: false }) employeeSelect;
   @Input() selectedDept = '';
   department: Department;
 
   employees: Employee[] = [];
-  selectedMembers: Employee[];
+  selectedEmployees: Employee[];
 
   faTimes = faTimes;
   faUserPlus = faUserPlus;
@@ -52,14 +50,14 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
   }
 
   openDialog() {
-    this.userSelect.close(); // close select dropdown
+    this.employeeSelect.close(); // close select dropdown
     const dialogRef = this.dialog.open(DialogAddUserComponent, {
       width: '580px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.createAddUser(result);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.createAddUser(data);
       }
     });
   }
@@ -71,8 +69,7 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
       if (this.selectedDept && this.department) {
         this.employeeService.setManager(employee, this.department.manager)
           .subscribe((updatedEmployee) => {
-            const index = this.employees.indexOf(updatedEmployee);
-            this.employees[index] = updatedEmployee;
+            this.updateEmployeeData(updatedEmployee);
 
             // add to dept manager team
             this.departmentService.addMemberToDepartment(employee, this.department)
@@ -83,13 +80,12 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
   }
 
   toggleMemberSelection() {
-    if (this.department && this.selectedMembers.length) {
-      const member = this.selectedMembers[this.selectedMembers.length - 1];
+    if (this.department && this.selectedEmployees.length) {
+      const member = this.selectedEmployees[this.selectedEmployees.length - 1];
 
       this.employeeService.setManager(member, this.department.manager)
         .subscribe((updatedMember) => {
-          const index = this.employees.indexOf(updatedMember);
-          this.employees[index] = updatedMember;
+          this.updateEmployeeData(updatedMember);
 
           this.departmentService.addMemberToDepartment(updatedMember, this.department)
             .subscribe(() => this.removeMemberFromSelection(member));
@@ -104,9 +100,14 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
     });
   }
 
+  updateEmployeeData(employee: Employee) {
+    const index = this.employees.indexOf(employee);
+    this.employees[index] = employee;
+  }
+
   removeMemberFromSelection(member: Employee) {
-    const memberIndex = this.userSelect.value.indexOf(member);
-    this.userSelect.value.splice(memberIndex, 1);
+    const memberIndex = this.employeeSelect.value.indexOf(member);
+    this.employeeSelect.value.splice(memberIndex, 1);
   }
 
 }

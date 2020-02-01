@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Department } from './shared/models/department.model';
+import { Department } from './shared/models';
 import { DialogAddDepartmentComponent } from './components/dialog-add-department/dialog-add-department.component';
-import { DepartmentService } from './services/department.service';
-import { EmployeeService } from './services/employee.service';
+import { DepartmentService, EmployeeService } from './services';
+
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
-import { Department } from '../../shared/models/department.model';
+import { Department } from '../../shared/models';
 import { DepartmentService } from '../../services/department.service';
 
 @Component({
@@ -10,20 +10,16 @@ import { DepartmentService } from '../../services/department.service';
 })
 export class DepartmentOverviewComponent implements OnInit, OnChanges {
   @Input() selectedDept: string;
-  departments: Department[];
   department: Department;
 
   constructor(private departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this.departmentService.getDepartments().subscribe(data => {
-      this.departments = data;
-    });
   }
 
   ngOnChanges() {
-    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(data => {
-      this.department = data;
+    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(department => {
+      this.department = department;
     });
   }
 

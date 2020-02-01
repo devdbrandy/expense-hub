@@ -10,8 +10,8 @@
       <div class="float-right">
         <mat-form-field>
           <mat-label>Add Member</mat-label>
-          <mat-select #userSelect multiple
-            [(value)]="selectedMembers"
+          <mat-select #employeeSelect multiple
+            [(value)]="selectedEmployees"
             (selectionChange)="toggleMemberSelection()">
             <button type="button" class="btn btn-block btn-success border-radius-0"
               (click)="openDialog()">
@@ -19,7 +19,7 @@
               Create Member
             </button>
 
-            <mat-option disabled [hidden]="userSelect.options.length > 1">
+            <mat-option disabled [hidden]="employeeSelect.options.length > 1">
               No available member
             </mat-option>
 

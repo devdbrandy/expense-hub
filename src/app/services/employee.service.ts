@@ -33,17 +33,17 @@ export class EmployeeService {
     return of(employee);
   }
 
-  setManager(member, manager): Observable<Employee> {
-    const index = this.employees.indexOf(member);
+  setManager(employee, manager): Observable<Employee> {
+    const index = this.employees.indexOf(employee);
     this.employees[index].setManager(manager);
 
-    return of(member);
+    return of(employee);
   }
 
-  removeManager(member): Observable<Employee> {
-    const index = this.employees.indexOf(member);
+  removeManager(employee): Observable<Employee> {
+    const index = this.employees.indexOf(employee);
     this.employees[index].removeManager();
 
-    return of(member);
+    return of(employee);
   }
 }
