@@ -10,6 +10,11 @@ import { NgForm } from '@angular/forms';
 })
 export class DialogAddUserComponent implements OnInit {
   model = { name: '', role: '' };
+  roles = [
+    { title: 'manager', amount: 30000 },
+    { title: 'developer', amount: 1000 },
+    { title: 'qa-tester', amount: 5000 },
+  ];
 
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
 

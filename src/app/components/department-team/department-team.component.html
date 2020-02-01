@@ -36,7 +36,7 @@
     <li class="list-group-item d-flex align-items-center"
       *ngFor="let member of team">
       {{ member.name }}
-      <span class="badge badge-secondary ml-2">{{ member.role }}</span>
+      <span class="badge badge-secondary ml-2">{{ member.role | uppercase }}</span>
       <div class="m-auto"></div>
 
       <button class="btn btn-sm btn-outline-success" disabled>
