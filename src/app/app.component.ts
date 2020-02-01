@@ -15,7 +15,6 @@ export class AppComponent {
   title = 'expense-hub';
   selectedDept: string;
   departments = departments;
-  selectedDepartment: Department;
 
   constructor(public dialog: MatDialog) { }
 
@@ -35,6 +34,7 @@ export class AppComponent {
     const manager = new Manager(managerName);
     const newDepartment = new Department(departmentName, manager);
     this.departments.push(newDepartment);
+    this.selectedDept = newDepartment.name;
   }
 
 }
