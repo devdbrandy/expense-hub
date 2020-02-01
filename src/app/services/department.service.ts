@@ -28,12 +28,17 @@ export class DepartmentService {
   }
 
   addMemberToDepartment(member: Employee, department: Department): Observable<boolean> {
-    department.addMember(member);
+    const deptIndex = this.departments.indexOf(department);
+
+    this.departments[deptIndex].manager.team.push(member);
     return of(true);
   }
 
   removeMemberFromDepartment(member: Employee, department: Department): Observable<boolean> {
-    department.addMember(member);
+    const index = department.manager.team.indexOf(member);
+    const deptIndex = this.departments.indexOf(department);
+
+    this.departments[deptIndex].manager.team.splice(index, 1);
     return of(true);
   }
 

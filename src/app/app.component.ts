@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { departments } from './shared/models/department.model';
 import { Department } from './shared/models/department.model';
 import { DialogAddDepartmentComponent } from './components/dialog-add-department/dialog-add-department.component';
-import { Manager } from 'src/app/shared/models/employee.model';
 import { DepartmentService } from './services/department.service';
+import { EmployeeService } from './services/employee.service';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +18,16 @@ export class AppComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentService,
+    private employeeService: EmployeeService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.departmentService.getDepartments().subscribe(data => {
+    this.fetchDepartments();
+  }
+
+  fetchDepartments(): void {
+    this.departmentService.getDepartments().subscribe(departments => {
       this.departments = departments;
     });
   }
@@ -42,11 +46,12 @@ export class AppComponent implements OnInit {
 
   addDepartment(departmentData: IDepartmentData) {
     const { departmentName: name, managerName } = departmentData;
-    const manager = new Manager(managerName);
 
-    this.departmentService.addDepartment({ name, manager }).subscribe(department => {
-      this.departments.push(department);
-      this.selectedDept = department.name;
+    this.employeeService.createEmployee(managerName, 'manager').subscribe(manager => {
+      this.departmentService.addDepartment({ name, manager }).subscribe(department => {
+        this.departments.push(department);
+        this.selectedDept = department.name;
+      });
     });
   }
 

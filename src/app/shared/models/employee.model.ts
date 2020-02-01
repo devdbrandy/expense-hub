@@ -1,5 +1,3 @@
-export const employees: Employee[] = [];
-
 export class Employee {
   role: string;
   allocation = null;
@@ -7,16 +5,10 @@ export class Employee {
   private headOfDept = false;
   private reportsTo: string;
 
-  constructor(public name: string) {
-    this.addNewEmployee();
-  }
+  constructor(public name: string) { }
 
   get totalAllocation() {
     return this.allocation;
-  }
-
-  private addNewEmployee() {
-    employees.push(this);
   }
 
   setManager(manager: Employee) {

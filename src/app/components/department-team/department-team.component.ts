@@ -1,14 +1,12 @@
 import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-
-import { employees, Developer, QATester, Manager } from '../../shared/models/employee.model';
 
 import { faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Department } from '../../shared/models/department.model';
 import { Employee } from '../../shared/models/employee.model';
 import { DialogAddUserComponent } from '../../components/dialog-add-user/dialog-add-user.component';
 import { DepartmentService } from '../../services/department.service';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-department-team',
@@ -16,30 +14,40 @@ import { DepartmentService } from '../../services/department.service';
   styleUrls: ['./department-team.component.scss'],
 })
 export class DepartmentTeamComponent implements OnInit, OnChanges {
+
   @ViewChild('userSelect', { static: false }) userSelect;
   @Input() selectedDept = '';
   department: Department;
-  team: Employee[] = [];
+
+  employees: Employee[] = [];
+  selectedMembers: Employee[];
+
   faTimes = faTimes;
   faUserPlus = faUserPlus;
-  departmentTeam = new FormControl();
-  employees: Employee[] = employees;
-  selectedMembers: Employee[];
 
   constructor(
     private departmentService: DepartmentService,
+    private employeeService: EmployeeService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.fetchEmployees();
   }
 
   ngOnChanges() {
-    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(data => {
-      if (data) {
-        this.department = data;
-        this.team = this.department.manager.team;
-      }
+    this.fetchDepartment();
+  }
+
+  fetchDepartment(): void {
+    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(department => {
+      this.department = department;
+    });
+  }
+
+  fetchEmployees(): void {
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.employees = employees;
     });
   }
 
@@ -57,35 +65,48 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
   }
 
   createAddUser({ name, role }: IEmployee) {
-    let employee: Employee;
+    this.employeeService.createEmployee(name, role).subscribe(employee => {
+      this.employees.push(employee);
 
-    switch (role) {
-      case 'developer':
-        employee = new Developer(name);
-        break;
-      case 'qa-tester':
-        employee = new QATester(name);
-        break;
-      default:
-        employee = new Manager(name);
-        break;
-    }
+      if (this.selectedDept && this.department) {
+        this.employeeService.setManager(employee, this.department.manager)
+          .subscribe((updatedEmployee) => {
+            const index = this.employees.indexOf(updatedEmployee);
+            this.employees[index] = updatedEmployee;
 
-    // add to dept manager team
-    if (this.department) {
-      this.department.addMember(employee);
-    }
+            // add to dept manager team
+            this.departmentService.addMemberToDepartment(employee, this.department)
+              .subscribe();
+          });
+      }
+    });
   }
 
-  toggleSelection() {
-    if (this.department) {
+  toggleMemberSelection() {
+    if (this.department && this.selectedMembers.length) {
       const member = this.selectedMembers[this.selectedMembers.length - 1];
-      this.department.addMember(member);
+
+      this.employeeService.setManager(member, this.department.manager)
+        .subscribe((updatedMember) => {
+          const index = this.employees.indexOf(updatedMember);
+          this.employees[index] = updatedMember;
+
+          this.departmentService.addMemberToDepartment(updatedMember, this.department)
+            .subscribe(() => this.removeMemberFromSelection(member));
+        });
     }
   }
 
-  onClickDelete(member: Employee) {
-    this.department.removeMember(member);
+  onDeleteClick(member: Employee) {
+    this.employeeService.removeManager(member).subscribe(() => {
+      this.departmentService.removeMemberFromDepartment(member, this.department)
+        .subscribe();
+    });
+  }
+
+  removeMemberFromSelection(member: Employee) {
+    const memberIndex = this.userSelect.value.indexOf(member);
+    this.userSelect.value.splice(memberIndex, 1);
   }
 
 }
