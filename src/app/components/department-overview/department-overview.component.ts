@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 import { Department } from '../../shared/models/department.model';
-import { departments } from '../../shared/models/department.model';
+import { DepartmentService } from '../../services/department.service';
 
 @Component({
   selector: 'app-department-overview',
@@ -10,15 +10,21 @@ import { departments } from '../../shared/models/department.model';
 })
 export class DepartmentOverviewComponent implements OnInit, OnChanges {
   @Input() selectedDept: string;
+  departments: Department[];
   department: Department;
 
-  constructor() { }
+  constructor(private departmentService: DepartmentService) { }
 
   ngOnInit() {
+    this.departmentService.getDepartments().subscribe(data => {
+      this.departments = data;
+    });
   }
 
   ngOnChanges() {
-    this.department = departments.find(department => department.name === this.selectedDept);
+    this.departmentService.getDepartmentByName(this.selectedDept).subscribe(data => {
+      this.department = data;
+    });
   }
 
 }
