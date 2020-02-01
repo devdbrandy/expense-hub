@@ -1,12 +1,12 @@
 <h3>Create Employee</h3>
 
-<form #departmentForm="ngForm" (ngSubmit)="onSubmit(departmentForm)">
+<form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
   <div class="form-group row">
     <label for="department" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="department"
         placeholder="Enter full name"
-        name="name"
+        name="name" required
         [ngModel]="model.name">
     </div>
   </div>
@@ -29,7 +29,8 @@
 
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary"
+        [disabled]="employeeForm.invalid || model.role === ''">Create</button>
     </div>
   </div>
 </form>
