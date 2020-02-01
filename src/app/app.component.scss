@@ -1,3 +1,22 @@
+@import '../styles.scss';
+
 .container {
   width: 60%;
+}
+
+.select-department .float-r {
+  float: right !important;
+}
+
+@include media-md {
+  .container {
+    width: 95%;
+  }
+
+  .select-department .float-r {
+    float: none !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

@@ -10,10 +10,18 @@ body {
   font-family: $font-family !important;
 }
 
+// global class
 .border-radius-0 {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .container.pt-4 {
   min-height: calc(93vh - 60px); // stick footer to bottom
+}
+
+// mixins
+@mixin media-md {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
 }
