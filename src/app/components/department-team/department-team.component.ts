@@ -57,12 +57,12 @@ export class DepartmentTeamComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        this.createAddUser(data);
+        this.createAddEmployee(data);
       }
     });
   }
 
-  createAddUser({ name, role }: IEmployee) {
+  createAddEmployee({ name, role }: IEmployee) {
     this.employeeService.createEmployee(name, role).subscribe(employee => {
       this.employees.push(employee);
 
